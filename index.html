@@ -122,13 +122,17 @@
             padding: 5px 10px;
             border-radius: 5px;
             cursor: pointer;
+
+        [data-theme="dark"] input {
+        color-scheme: dark;
         }
+            }
     </style>
 </head>
 <body data-theme="dark">
     <div class="container">
         <header>
-            <h1>Tracker</h1>
+            <h1>Time Clock</h1>
             <button class="theme-toggle" onclick="toggleTheme()">Theme</button>
         </header>
 
@@ -148,7 +152,7 @@
         </div>
 
         <div class="form-group" id="rr-group">
-            <label>RR # (YYYYMMDD####)</label>
+            <label>RR #</label>
             <div class="rr-container" id="rr-inputs">
                 <div class="rr-row">
                     <input type="number" class="rr-input" placeholder="202604150001" oninput="validateRR(this)">
@@ -219,7 +223,7 @@
 
         async function sendToGoogleSheet(data) {
             // Replace with your Google Apps Script Web App URL
-            const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxy18G2RnR4b6K-WGSp5kZ5InM7pTj5x_6LHGy2AoQwO-D63q6o0PBdA83DshnU2Zw/exec';
+            const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbznxili680hEb4ksmtOjWntFnXTHShj1NjYp-AWM16_76Qps4NW4o54fsoDMqBVWwNM/exec';
             
             try {
                 // In a real scenario, you'd fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify(data) })
