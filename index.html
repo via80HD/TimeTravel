@@ -68,6 +68,12 @@
             font-size: 1rem;
         }
 
+        /* Force 24-hour time picker */
+        input[type="time"] {
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
         .rr-container {
             display: flex;
             flex-direction: column;
@@ -122,11 +128,11 @@
             padding: 5px 10px;
             border-radius: 5px;
             cursor: pointer;
+        }
 
         [data-theme="dark"] input {
-        color-scheme: dark;
+            color-scheme: dark;
         }
-            }
     </style>
 </head>
 <body data-theme="dark">
@@ -176,6 +182,17 @@
         let isClockedIn = false;
         let clockInData = {};
 
+        // Restore saved clock-in on load
+        window.onload = function() {
+            const saved = localStorage.getItem("clockInData");
+            if (saved) {
+                clockInData = JSON.parse(saved);
+                isClockedIn = true;
+                document.getElementById('clock-in').disabled = true;
+                document.getElementById('clock-out').disabled = false;
+            }
+        };
+
         function toggleTheme() {
             const body = document.body;
             body.dataset.theme = body.dataset.theme === 'dark' ? 'light' : 'dark';
@@ -205,35 +222,47 @@
 
             if (type === 'in') {
                 clockInData = { date, time, notes, rrNumbers };
+                localStorage.setItem("clockInData", JSON.stringify(clockInData));
+
                 isClockedIn = true;
                 document.getElementById('clock-in').disabled = true;
                 document.getElementById('clock-out').disabled = false;
+
                 alert("Clocked in at " + time);
             } else {
                 const finalData = {
-                    ...clockInData,
+                    date: clockInData.date,
+                    time: clockInData.time,
                     outDate: date,
                     outTime: time,
-                    finalNotes: notes,
-                    allRR: rrNumbers.join(', ')
+                    allRR: rrNumbers.join(', '),
+                    finalNotes: notes
                 };
+
                 sendToGoogleSheet(finalData);
+
+                localStorage.removeItem("clockInData");
             }
         }
 
         async function sendToGoogleSheet(data) {
-            // Replace with your Google Apps Script Web App URL
             const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbznxili680hEb4ksmtOjWntFnXTHShj1NjYp-AWM16_76Qps4NW4o54fsoDMqBVWwNM/exec';
-            
+
             try {
-                // In a real scenario, you'd fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify(data) })
-                console.log("Sending data:", data);
+                const response = await fetch(WEB_APP_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                await response.text();
+
                 alert("Data sent to Google Sheets successfully.");
-                
-                // Reset State
+
                 isClockedIn = false;
                 document.getElementById('clock-in').disabled = false;
                 document.getElementById('clock-out').disabled = true;
+
             } catch (e) {
                 alert("Error sending data.");
             }
