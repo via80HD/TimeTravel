@@ -1,272 +1,301 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time Traveler</title>
-    <style>
-        :root {
-            --bg: #ffffff;
-            --text: #1a1a1a;
-            --input-bg: #f0f0f0;
-            --accent: #2563eb;
-            --disabled: #cccccc;
-            --border: #dddddd;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time Clock</title>
 
-        [data-theme="dark"] {
-            --bg: #121212;
-            --text: #e0e0e0;
-            --input-bg: #1e1e1e;
-            --accent: #3b82f6;
-            --disabled: #333333;
-            --border: #444444;
-        }
+<style>
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: background 0.3s ease;
-        }
+/* GLOBAL RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
 
-        .container {
-            width: 100%;
-            max-width: 400px;
-        }
+body {
+    background: #1c1f26;
+    color: #e6e6e6;
+    padding: 20px;
+    max-width: 500px;
+    margin: auto;
+}
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
+/* SECTION SPACING */
+#top-section,
+#button-section,
+#status-log,
+#rr-section,
+#debug-panel {
+    margin-bottom: 25px;
+}
 
-        .form-group {
-            margin-bottom: 1.5rem;
-            display: flex;
-            flex-direction: column;
-        }
+/* LABELS */
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    opacity: 0.85;
+}
 
-        label {
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
+/* NEUMORPHIC INPUT FIELDS */
+input[type="date"],
+input[type="text"] {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    color: #e6e6e6;
+    background: #1c1f26;
+    box-shadow:
+        inset 4px 4px 8px #14161b,
+        inset -4px -4px 8px #242832;
+    outline: none;
+}
 
-        input, textarea {
-            padding: 12px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: var(--input-bg);
-            color: var(--text);
-            font-size: 1rem;
-        }
+/* TOP SECTION LAYOUT */
+#top-section {
+    display: flex;
+    gap: 15px;
+}
 
-        /* Force 24-hour time picker */
-        input[type="time"] {
-            appearance: none;
-            -webkit-appearance: none;
-        }
+.field-group {
+    flex: 1;
+}
 
-        .rr-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+/* BUTTONS */
+#button-section {
+    display: flex;
+    gap: 15px;
+}
 
-        .rr-row {
-            display: flex;
-            gap: 10px;
-        }
+button {
+    flex: 1;
+    padding: 14px;
+    font-size: 18px;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    color: #e6e6e6;
+    background: #1c1f26;
+    box-shadow:
+        4px 4px 8px #14161b,
+        -4px -4px 8px #242832;
+    transition: 0.15s ease;
+}
 
-        .add-btn {
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 0 15px;
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
+button:active {
+    box-shadow:
+        inset 4px 4px 8px #14161b,
+        inset -4px -4px 8px #242832;
+}
 
-        .btn-stack {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 2rem;
-        }
+#clock-in-btn { color: #9affc9; }
+#clock-out-btn { color: #ff9a9a; }
 
-        button.action-btn {
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
+button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
 
-        #clock-in { background-color: #22c55e; color: white; }
-        #clock-out { background-color: #ef4444; color: white; }
+/* STATUS LOG */
+#status-log {
+    padding: 14px;
+    border-radius: 12px;
+    min-height: 40px;
+    background: #1c1f26;
+    box-shadow:
+        inset 4px 4px 8px #14161b,
+        inset -4px -4px 8px #242832;
+    font-size: 15px;
+    line-height: 1.4;
+}
 
-        button:disabled {
-            background-color: var(--disabled) !important;
-            color: #888888;
-            cursor: not-allowed;
-        }
+/* RR SECTION */
+#rr-section label {
+    margin-bottom: 10px;
+}
 
-        .theme-toggle {
-            background: none;
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+.rr-field {
+    margin-bottom: 12px;
+    position: relative;
+}
 
-        [data-theme="dark"] input {
-            color-scheme: dark;
-        }
-    </style>
+.rr-input {
+    width: 100%;
+}
+
+/* ADD JOB BUTTON */
+#add-rr-btn {
+    width: 100%;
+    margin-top: 5px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 12px;
+    background: #1c1f26;
+    color: #b0c4ff;
+    box-shadow:
+        4px 4px 8px #14161b,
+        -4px -4px 8px #242832;
+}
+
+/* DEBUG PANEL */
+#debug-panel {
+    border-radius: 12px;
+    background: #1c1f26;
+    box-shadow:
+        inset 4px 4px 8px #14161b,
+        inset -4px -4px 8px #242832;
+}
+
+#debug-header {
+    padding: 12px;
+    font-size: 15px;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+#debug-content {
+    padding: 12px;
+    font-size: 14px;
+    border-top: 1px solid #2a2e38;
+    line-height: 1.4;
+    display: none;
+}
+
+</style>
 </head>
-<body data-theme="dark">
-    <div class="container">
-        <header>
-            <h1>Time Clock</h1>
-            <button class="theme-toggle" onclick="toggleTheme()">Theme</button>
-        </header>
 
-        <div class="form-group">
-            <label>Date</label>
-            <input type="date" id="date-picker">
-        </div>
+<body>
 
-        <div class="form-group">
-            <label>Time</label>
-            <input type="time" id="time-picker">
-        </div>
+<!-- TOP SECTION: DATE + TIME -->
+<div id="top-section">
+    <div class="field-group">
+        <label for="date-input">Date</label>
+        <input type="date" id="date-input">
+    </div>
 
-        <div class="form-group">
-            <label>Notes</label>
-            <textarea id="notes" rows="3" placeholder="Shift notes..."></textarea>
-        </div>
+    <div class="field-group">
+        <label for="time-input">Time (24hr)</label>
+        <input type="text" id="time-input" placeholder="HH:MM">
+    </div>
+</div>
 
-        <div class="form-group" id="rr-group">
-            <label>RR #</label>
-            <div class="rr-container" id="rr-inputs">
-                <div class="rr-row">
-                    <input type="number" class="rr-input" placeholder="202604150001" oninput="validateRR(this)">
-                    <button class="add-btn" onclick="addRRField()">+</button>
-                </div>
-            </div>
-        </div>
+<!-- CLOCK IN / CLOCK OUT BUTTONS -->
+<div id="button-section">
+    <button id="clock-in-btn">Clock In</button>
+    <button id="clock-out-btn" disabled>Clock Out</button>
+</div>
 
-        <div class="btn-stack">
-            <button id="clock-in" class="action-btn" onclick="handleClock('in')">Clock In</button>
-            <button id="clock-out" class="action-btn" onclick="handleClock('out')" disabled>Clock Out</button>
+<!-- STATUS LOG -->
+<div id="status-log"></div>
+
+<!-- RR JOB NUMBERS -->
+<div id="rr-section">
+    <label>Job Numbers (RR)</label>
+
+    <div id="rr-fields">
+        <div class="rr-field">
+            <input type="text" class="rr-input" placeholder="Job #">
         </div>
     </div>
 
-    <script>
-        // Set Defaults
-        const now = new Date();
-        document.getElementById('date-picker').value = now.toISOString().split('T')[0];
-        document.getElementById('time-picker').value = now.toTimeString().slice(0,5);
+    <button id="add-rr-btn">+ Add Job</button>
+</div>
 
-        let isClockedIn = false;
-        let clockInData = {};
+<!-- DEBUG PANEL -->
+<div id="debug-panel">
+    <div id="debug-header">Debug Info ▼</div>
+    <div id="debug-content"></div>
+</div>
 
-        // Restore saved clock-in on load
-        window.onload = function() {
-            const saved = localStorage.getItem("clockInData");
-            if (saved) {
-                clockInData = JSON.parse(saved);
-                isClockedIn = true;
-                document.getElementById('clock-in').disabled = true;
-                document.getElementById('clock-out').disabled = false;
-            }
-        };
+<script>
 
-        function toggleTheme() {
-            const body = document.body;
-            body.dataset.theme = body.dataset.theme === 'dark' ? 'light' : 'dark';
-        }
+/* DEBUG TOGGLE */
+document.getElementById("debug-header").onclick = () => {
+    const dbg = document.getElementById("debug-content");
+    dbg.style.display = dbg.style.display === "none" ? "block" : "none";
+};
 
-        function addRRField() {
-            const container = document.getElementById('rr-inputs');
-            const newRow = document.createElement('div');
-            newRow.className = 'rr-row';
-            newRow.innerHTML = `
-                <input type="number" class="rr-input" placeholder="202604150002" oninput="validateRR(this)">
-            `;
-            container.appendChild(newRow);
-        }
+/* ADD JOB FIELD */
+document.getElementById("add-rr-btn").onclick = () => {
+    const container = document.getElementById("rr-fields");
+    const count = container.children.length;
 
-        function validateRR(input) {
-            if (input.value.length > 12) {
-                input.value = input.value.slice(0, 12);
-            }
-        }
+    if (count >= 3) return;
 
-        function handleClock(type) {
-            const date = document.getElementById('date-picker').value;
-            const time = document.getElementById('time-picker').value;
-            const notes = document.getElementById('notes').value;
-            const rrNumbers = Array.from(document.querySelectorAll('.rr-input')).map(i => i.value);
+    const div = document.createElement("div");
+    div.className = "rr-field";
+    div.innerHTML = `<input type="text" class="rr-input" placeholder="Job #">`;
+    container.appendChild(div);
+};
 
-            if (type === 'in') {
-                clockInData = { date, time, notes, rrNumbers };
-                localStorage.setItem("clockInData", JSON.stringify(clockInData));
+/* STATUS LOG UPDATE */
+function updateStatus() {
+    const log = document.getElementById("status-log");
+    const data = JSON.parse(localStorage.getItem("shiftData") || "null");
 
-                isClockedIn = true;
-                document.getElementById('clock-in').disabled = true;
-                document.getElementById('clock-out').disabled = false;
+    if (!data || !data.clockedIn) {
+        log.textContent = "Not clocked in.";
+        return;
+    }
 
-                alert("Clocked in at " + time);
-            } else {
-                const finalData = {
-                    date: clockInData.date,
-                    time: clockInData.time,
-                    outDate: date,
-                    outTime: time,
-                    allRR: rrNumbers.join(', '),
-                    finalNotes: notes
-                };
+    log.innerHTML = `
+        Clocked in at ${data.inTime} on ${data.inDate}<br>
+        Jobs: ${data.jobs.join(", ")}
+    `;
+}
 
-                sendToGoogleSheet(finalData);
+/* CLOCK IN */
+document.getElementById("clock-in-btn").onclick = () => {
+    const date = document.getElementById("date-input").value;
+    const time = document.getElementById("time-input").value;
 
-                localStorage.removeItem("clockInData");
-            }
-        }
+    const jobs = [...document.querySelectorAll(".rr-input")]
+        .map(i => i.value.trim())
+        .filter(v => v !== "");
 
-        async function sendToGoogleSheet(data) {
-            const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyqvwc1b6SomfaBenksjGkz4vrWLt7KXlnwameebPN3K1cf-yEf9OWBpxTy8PskycuW/exec';
+    if (!date || !time || jobs.length === 0) {
+        alert("Enter date, time, and at least one job number.");
+        return;
+    }
 
-            try {
-                const response = await fetch(WEB_APP_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
+    const data = {
+        clockedIn: true,
+        inDate: date,
+        inTime: time,
+        jobs
+    };
 
-                await response.text();
+    localStorage.setItem("shiftData", JSON.stringify(data));
 
-                alert("Data sent to Google Sheets successfully.");
+    document.getElementById("clock-in-btn").disabled = true;
+    document.getElementById("clock-out-btn").disabled = false;
 
-                isClockedIn = false;
-                document.getElementById('clock-in').disabled = false;
-                document.getElementById('clock-out').disabled = true;
+    updateStatus();
+};
 
-            } catch (e) {
-                alert("Error sending data.");
-            }
-        }
-    </script>
+/* CLOCK OUT */
+document.getElementById("clock-out-btn").onclick = () => {
+    const data = JSON.parse(localStorage.getItem("shiftData") || "null");
+    if (!data) return;
+
+    data.clockedIn = false;
+    localStorage.setItem("shiftData", JSON.stringify(data));
+
+    document.getElementById("clock-in-btn").disabled = false;
+    document.getElementById("clock-out-btn").disabled = true;
+
+    updateStatus();
+};
+
+/* INITIAL LOAD */
+updateStatus();
+
+</script>
+
 </body>
 </html>
