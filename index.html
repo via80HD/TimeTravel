@@ -402,15 +402,25 @@ document.getElementById("clock-out-btn").onclick = async () => {
   const data = JSON.parse(localStorage.getItem("shiftData") || "null");
   if (!data) return;
 
-  const now = new Date();
-  const outDate = now.toISOString().split("T")[0];
-  const outTime = now.toTimeString().slice(0,5);
+  // USER-TYPED OUT TIME
+  const outTimeRaw = document.getElementById("time-input").value.trim();
+  if (!outTimeRaw) {
+    alert("Enter your clock-out time (e.g., 0900).");
+    return;
+  }
+
+  // USER-TYPED OUT DATE
+  const outDateRaw = document.getElementById("date-input").value.trim();
+  if (!outDateRaw) {
+    alert("Enter your clock-out date.");
+    return;
+  }
 
   const payload = {
     inDate: data.inDate,
     inTime: data.inTime,
-    outDate,
-    outTime,
+    outDate: outDateRaw,
+    outTime: outTimeRaw,
     jobs: data.jobs
   };
 
@@ -422,14 +432,8 @@ document.getElementById("clock-out-btn").onclick = async () => {
       body: JSON.stringify(payload)
     });
 
-    document.getElementById("debug-content").innerHTML =
-      "Last POST sent:<br>" +
-      JSON.stringify(payload, null, 2);
-
     toast("Shift Logged & Sent", "#e74c3c");
   } catch (err) {
-    document.getElementById("debug-content").innerHTML =
-      "POST ERROR:<br>" + err;
     toast("Error sending shift", "#e67e22");
   }
 
@@ -442,10 +446,6 @@ document.getElementById("clock-out-btn").onclick = async () => {
   updateStatus();
   loadRecentLogs();
 };
-
-/* INITIAL LOAD */
-updateStatus();
-loadRecentLogs();
 </script>
 
 </body>
