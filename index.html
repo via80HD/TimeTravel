@@ -6,21 +6,20 @@
 <title>Time Clock</title>
 
 <style>
-
 /* GLOBAL RESET */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
 body {
-    background: #1c1f26;
-    color: #e6e6e6;
-    padding: 20px;
-    max-width: 500px;
-    margin: auto;
+  background: #1c1f26;
+  color: #e6e6e6;
+  padding: 20px;
+  max-width: 500px;
+  margin: auto;
 }
 
 /* SECTION SPACING */
@@ -28,143 +27,191 @@ body {
 #button-section,
 #status-log,
 #rr-section,
-#debug-panel {
-    margin-bottom: 25px;
+#debug-panel,
+#recent-logs {
+  margin-bottom: 25px;
 }
 
 /* LABELS */
 label {
-    display: block;
-    margin-bottom: 6px;
-    font-size: 14px;
-    opacity: 0.85;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  opacity: 0.85;
 }
 
 /* NEUMORPHIC INPUT FIELDS */
 input[type="date"],
 input[type="text"] {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 12px;
-    border: none;
-    font-size: 16px;
-    color: #e6e6e6;
-    background: #1c1f26;
-    box-shadow:
-        inset 4px 4px 8px #14161b,
-        inset -4px -4px 8px #242832;
-    outline: none;
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: none;
+  font-size: 16px;
+  color: #e6e6e6;
+  background: #1c1f26;
+  box-shadow:
+    inset 4px 4px 8px #14161b,
+    inset -4px -4px 8px #242832;
+  outline: none;
 }
 
 /* TOP SECTION LAYOUT */
 #top-section {
-    display: flex;
-    gap: 15px;
+  display: flex;
+  gap: 15px;
 }
 
 .field-group {
-    flex: 1;
+  flex: 1;
 }
 
 /* BUTTONS */
 #button-section {
-    display: flex;
-    gap: 15px;
+  display: flex;
+  gap: 15px;
 }
 
 button {
-    flex: 1;
-    padding: 14px;
-    font-size: 18px;
-    border: none;
-    border-radius: 14px;
-    cursor: pointer;
-    color: #e6e6e6;
-    background: #1c1f26;
-    box-shadow:
-        4px 4px 8px #14161b,
-        -4px -4px 8px #242832;
-    transition: 0.15s ease;
+  flex: 1;
+  padding: 14px;
+  font-size: 18px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  color: #e6e6e6;
+  background: #1c1f26;
+  box-shadow:
+    4px 4px 8px #14161b,
+    -4px -4px 8px #242832;
+  transition: 0.15s ease;
 }
 
 button:active {
-    box-shadow:
-        inset 4px 4px 8px #14161b,
-        inset -4px -4px 8px #242832;
+  box-shadow:
+    inset 4px 4px 8px #14161b,
+    inset -4px -4px 8px #242832;
 }
 
 #clock-in-btn { color: #9affc9; }
 #clock-out-btn { color: #ff9a9a; }
 
 button:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 /* STATUS LOG */
 #status-log {
-    padding: 14px;
-    border-radius: 12px;
-    min-height: 40px;
-    background: #1c1f26;
-    box-shadow:
-        inset 4px 4px 8px #14161b,
-        inset -4px -4px 8px #242832;
-    font-size: 15px;
-    line-height: 1.4;
+  padding: 14px;
+  border-radius: 12px;
+  min-height: 40px;
+  background: #1c1f26;
+  box-shadow:
+    inset 4px 4px 8px #14161b,
+    inset -4px -4px 8px #242832;
+  font-size: 15px;
+  line-height: 1.4;
 }
 
 /* RR SECTION */
 #rr-section label {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .rr-field {
-    margin-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 .rr-input {
-    width: 100%;
+  width: 100%;
 }
 
 /* ADD JOB BUTTON */
 #add-rr-btn {
-    width: 100%;
-    margin-top: 5px;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 12px;
-    background: #1c1f26;
-    color: #b0c4ff;
-    box-shadow:
-        4px 4px 8px #14161b,
-        -4px -4px 8px #242832;
+  width: 100%;
+  margin-top: 5px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 12px;
+  background: #1c1f26;
+  color: #b0c4ff;
+  box-shadow:
+    4px 4px 8px #14161b,
+    -4px -4px 8px #242832;
 }
 
 /* DEBUG PANEL */
 #debug-panel {
-    border-radius: 12px;
-    background: #1c1f26;
-    box-shadow:
-        inset 4px 4px 8px #14161b,
-        inset -4px -4px 8px #242832;
+  border-radius: 12px;
+  background: #1c1f26;
+  box-shadow:
+    inset 4px 4px 8px #14161b,
+    inset -4px -4px 8px #242832;
 }
 
 #debug-header {
-    padding: 12px;
-    font-size: 15px;
-    cursor: pointer;
-    opacity: 0.8;
+  padding: 12px;
+  font-size: 15px;
+  cursor: pointer;
+  opacity: 0.8;
 }
 
 #debug-content {
-    padding: 12px;
-    font-size: 14px;
-    border-top: 1px solid #2a2e38;
-    line-height: 1.4;
-    display: none;
+  padding: 12px;
+  font-size: 14px;
+  border-top: 1px solid #2a2e38;
+  line-height: 1.4;
+  display: none;
 }
 
+/* RECENT LOGS */
+#recent-logs {
+  padding: 14px;
+  border-radius: 12px;
+  background: #1c1f26;
+  box-shadow:
+    inset 4px 4px 8px #14161b,
+    inset -4px -4px 8px #242832;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+#recent-logs h3 {
+  font-size: 15px;
+  margin-bottom: 8px;
+  opacity: 0.9;
+}
+
+.recent-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: monospace;
+  font-size: 13px;
+}
+
+/* TOAST */
+#toast {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  background: #2ecc71;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 9999;
+}
+
+#toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-5px);
+}
 </style>
 </head>
 
@@ -172,159 +219,233 @@ button:disabled {
 
 <!-- TOP SECTION: DATE + TIME -->
 <div id="top-section">
-    <div class="field-group">
-        <label for="date-input">Date</label>
-        <input type="date" id="date-input">
-    </div>
+  <div class="field-group">
+    <label for="date-input">Date</label>
+    <input type="date" id="date-input">
+  </div>
 
-    <div class="field-group">
-        <label for="time-input">Time (24hr)</label>
-        <input type="text" id="time-input" placeholder="HH:MM">
-    </div>
+  <div class="field-group">
+    <label for="time-input">Time (24hr)</label>
+    <input type="text" id="time-input" placeholder="HH:MM">
+  </div>
 </div>
 
 <!-- CLOCK IN / CLOCK OUT BUTTONS -->
 <div id="button-section">
-    <button id="clock-in-btn">Clock In</button>
-    <button id="clock-out-btn" disabled>Clock Out</button>
+  <button id="clock-in-btn">Clock In</button>
+  <button id="clock-out-btn" disabled>Clock Out</button>
 </div>
 
 <!-- STATUS LOG -->
-<div id="status-log"></div>
+<div id="status-log">Not clocked in.</div>
 
 <!-- RR JOB NUMBERS -->
 <div id="rr-section">
-    <label>Job Numbers (RR)</label>
+  <label>Job Numbers (RR)</label>
 
-    <div id="rr-fields">
-        <div class="rr-field">
-            <input type="text" class="rr-input" placeholder="Job #">
-        </div>
+  <div id="rr-fields">
+    <div class="rr-field">
+      <input type="text" class="rr-input" placeholder="Job #">
     </div>
+  </div>
 
-    <button id="add-rr-btn">+ Add Job</button>
+  <button id="add-rr-btn">+ Add Job</button>
 </div>
 
 <!-- DEBUG PANEL -->
 <div id="debug-panel">
-    <div id="debug-header">Debug Info ▼</div>
-    <div id="debug-content"></div>
+  <div id="debug-header">Debug Info ▼</div>
+  <div id="debug-content"></div>
 </div>
 
-<script>
+<!-- RECENT LOGS -->
+<div id="recent-logs">
+  <h3>Recent Logs (last 5)</h3>
+  <div id="recent-logs-body">No recent logs.</div>
+</div>
 
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
 const SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyqvwc1b6SomfaBenksjGkz4vrWLt7KXlnwameebPN3K1cf-yEf9OWBpxTy8PskycuW/exec";
+
+/* TOAST */
+function toast(msg, color) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.style.background = color || "#2ecc71";
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 2000);
+}
 
 /* DEBUG TOGGLE */
 document.getElementById("debug-header").onclick = () => {
-    const dbg = document.getElementById("debug-content");
-    dbg.style.display = dbg.style.display === "none" ? "block" : "none";
+  const dbg = document.getElementById("debug-content");
+  dbg.style.display = dbg.style.display === "none" ? "block" : "none";
 };
 
 /* ADD JOB FIELD */
 document.getElementById("add-rr-btn").onclick = () => {
-    const container = document.getElementById("rr-fields");
-    const count = container.children.length;
+  const container = document.getElementById("rr-fields");
+  const count = container.children.length;
+  if (count >= 3) return;
 
-    if (count >= 3) return;
-
-    const div = document.createElement("div");
-    div.className = "rr-field";
-    div.innerHTML = `<input type="text" class="rr-input" placeholder="Job #">`;
-    container.appendChild(div);
+  const div = document.createElement("div");
+  div.className = "rr-field";
+  div.innerHTML = `<input type="text" class="rr-input" placeholder="Job #">`;
+  container.appendChild(div);
 };
 
 /* STATUS LOG UPDATE */
 function updateStatus() {
-    const log = document.getElementById("status-log");
-    const data = JSON.parse(localStorage.getItem("shiftData") || "null");
+  const log = document.getElementById("status-log");
+  const data = JSON.parse(localStorage.getItem("shiftData") || "null");
 
-    if (!data || !data.clockedIn) {
-        log.textContent = "Not clocked in.";
-        return;
+  if (!data || !data.clockedIn) {
+    log.textContent = "Not clocked in.";
+    return;
+  }
+
+  log.innerHTML = `
+    Clocked in at ${data.inTime} on ${data.inDate}<br>
+    Jobs: ${data.jobs.join(", ")}
+  `;
+}
+
+/* FORMAT HELPERS */
+function shortDate(iso) {
+  if (!iso) return "N/A";
+  const parts = iso.split("-");
+  if (parts.length !== 3) return iso;
+  const y = parts[0].slice(2);
+  const m = String(parseInt(parts[1], 10));
+  const d = String(parseInt(parts[2], 10));
+  return `${m}/${d}/${y}`;
+}
+
+function compactTime(t) {
+  if (!t) return "N/A";
+  const clean = t.replace(":", "");
+  return clean;
+}
+
+/* RECENT LOGS LOADER */
+async function loadRecentLogs() {
+  const body = document.getElementById("recent-logs-body");
+  body.textContent = "Loading...";
+
+  try {
+    const res = await fetch(SHEETS_WEB_APP_URL + "?recent=5");
+    const rows = await res.json();
+
+    if (!rows || !rows.length) {
+      body.textContent = "No recent logs.";
+      return;
     }
 
-    log.innerHTML = `
-        Clocked in at ${data.inTime} on ${data.inDate}<br>
-        Jobs: ${data.jobs.join(", ")}
-    `;
+    body.innerHTML = "";
+    rows.forEach(r => {
+      const rowDiv = document.createElement("div");
+      rowDiv.className = "recent-row";
+
+      const dateStr = shortDate(r.inDate);
+      const timeStr = `${compactTime(r.inTime)}-${compactTime(r.outTime)}`;
+      const rrStr = r.rr || "";
+
+      rowDiv.innerHTML = `
+        <span>${dateStr}</span>
+        <span>${timeStr}</span>
+        <span>${rrStr}</span>
+      `;
+      body.appendChild(rowDiv);
+    });
+  } catch (err) {
+    body.textContent = "Error loading logs.";
+    const dbg = document.getElementById("debug-content");
+    dbg.innerHTML += `<br>Recent logs error: ${err}`;
+  }
 }
 
 /* CLOCK IN */
 document.getElementById("clock-in-btn").onclick = () => {
-    const date = document.getElementById("date-input").value;
-    const time = document.getElementById("time-input").value;
+  const date = document.getElementById("date-input").value;
+  const time = document.getElementById("time-input").value;
 
-    const jobs = [...document.querySelectorAll(".rr-input")]
-        .map(i => i.value.trim())
-        .filter(v => v !== "");
+  const jobs = [...document.querySelectorAll(".rr-input")]
+    .map(i => i.value.trim())
+    .filter(v => v !== "");
 
-    if (!date || !time || jobs.length === 0) {
-        alert("Enter date, time, and at least one job number.");
-        return;
-    }
+  if (!date || !time || jobs.length === 0) {
+    alert("Enter date, time, and at least one job number.");
+    return;
+  }
 
-    const data = {
-        clockedIn: true,
-        inDate: date,
-        inTime: time,
-        jobs
-    };
+  const data = {
+    clockedIn: true,
+    inDate: date,
+    inTime: time,
+    jobs
+  };
 
-    localStorage.setItem("shiftData", JSON.stringify(data));
+  localStorage.setItem("shiftData", JSON.stringify(data));
 
-    document.getElementById("clock-in-btn").disabled = true;
-    document.getElementById("clock-out-btn").disabled = false;
+  document.getElementById("clock-in-btn").disabled = true;
+  document.getElementById("clock-out-btn").disabled = false;
 
-    updateStatus();
+  updateStatus();
+  toast("Clocked In", "#2ecc71");
 };
 
 /* CLOCK OUT */
 document.getElementById("clock-out-btn").onclick = async () => {
-    const data = JSON.parse(localStorage.getItem("shiftData") || "null");
-    if (!data) return;
+  const data = JSON.parse(localStorage.getItem("shiftData") || "null");
+  if (!data) return;
 
-    const now = new Date();
-    const outDate = now.toISOString().split("T")[0];
-    const outTime = now.toTimeString().slice(0,5);
+  const now = new Date();
+  const outDate = now.toISOString().split("T")[0];
+  const outTime = now.toTimeString().slice(0,5);
 
-    const payload = {
-        inDate: data.inDate,
-        inTime: data.inTime,
-        outDate,
-        outTime,
-        jobs: data.jobs
-    };
+  const payload = {
+    inDate: data.inDate,
+    inTime: data.inTime,
+    outDate,
+    outTime,
+    jobs: data.jobs
+  };
 
-    try {
-        await fetch(SHEETS_WEB_APP_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-        });
+  try {
+    await fetch(SHEETS_WEB_APP_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
 
-        document.getElementById("debug-content").innerHTML =
-            "Last POST sent:<br>" +
-            JSON.stringify(payload, null, 2);
+    document.getElementById("debug-content").innerHTML =
+      "Last POST sent:<br>" +
+      JSON.stringify(payload, null, 2);
 
-    } catch (err) {
-        document.getElementById("debug-content").innerHTML =
-            "POST ERROR:<br>" + err;
-    }
+    toast("Shift Logged & Sent", "#e74c3c");
+  } catch (err) {
+    document.getElementById("debug-content").innerHTML =
+      "POST ERROR:<br>" + err;
+    toast("Error sending shift", "#e67e22");
+  }
 
-    data.clockedIn = false;
-    localStorage.setItem("shiftData", JSON.stringify(data));
+  data.clockedIn = false;
+  localStorage.setItem("shiftData", JSON.stringify(data));
 
-    document.getElementById("clock-in-btn").disabled = false;
-    document.getElementById("clock-out-btn").disabled = true;
+  document.getElementById("clock-in-btn").disabled = false;
+  document.getElementById("clock-out-btn").disabled = true;
 
-    updateStatus();
+  updateStatus();
+  loadRecentLogs();
 };
 
 /* INITIAL LOAD */
 updateStatus();
-
+loadRecentLogs();
 </script>
 
 </body>
